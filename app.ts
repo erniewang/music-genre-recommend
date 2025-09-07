@@ -1,4 +1,5 @@
 import express from "express";
+import { database } from './db/database';
 
 import { 
     getPlaylists, 
@@ -16,6 +17,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json()); 
+//IMPORTIANT
 //express does not automatically parse request bodies
 
 app.get('/', (req, res) => {
@@ -41,6 +43,8 @@ app.get('/api/playlists/:id', getPlaylist);
 app.delete('/api/playlists/:id', deletePlaylist);
 app.post('/api/playlists/:id/songs', addSongToPlaylist);
 app.delete('/api/playlists/:id/songs/:songId', removeSongFromPlaylist);
+
+
 
 // Start the server
 app.listen(port, () => {

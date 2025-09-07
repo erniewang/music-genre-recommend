@@ -1,3 +1,10 @@
-export const getPlaylist = async (_req: any, res: any) => {
+import { database } from '../../db/database';
+
+// Retrieves detailed information about a specific playlist
+// Route: GET /api/playlists/:id
+// Returns: Complete playlist object with songs and metadata
+export const getPlaylist = async (req: any, res: any) => {
+    console.log("Got database instance:", database);
+    console.log("Playlist ID:", req.params.id);
     res.json({ message: "getPlaylist's response" });
 };

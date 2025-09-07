@@ -28,6 +28,9 @@ class ServerConnector {
             const combinedURL = this.buildURL(parameter);
             const response = await fetch(combinedURL, {
                 method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify({ data: payload }),
             });
 
