@@ -6,7 +6,7 @@ class ServerConnector {
         return this.baseURL + "/" + endpoint;
     }
     //used only by internal functions as shown below
-
+    
     constructor(endpoint:string) {
         this.baseURL =`http://localhost:3000/api`;
         this.baseURL = this.buildURL(endpoint);
@@ -15,6 +15,7 @@ class ServerConnector {
     async get(parameter: string) {
         try {
             const combinedURL = this.buildURL(parameter);
+            //console.log("checking out the link",combinedURL);
             const result = await fetch(combinedURL);
             const data = await result.text();
             return data;
@@ -22,10 +23,11 @@ class ServerConnector {
             throw error;
         }
     }
-
+    
     async post(parameter: string, payload: object) {
         try {
             const combinedURL = this.buildURL(parameter);
+            console.log("trying out", combinedURL);
             const response = await fetch(combinedURL, {
                 method: "POST",
                 headers: {

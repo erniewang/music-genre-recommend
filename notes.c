@@ -23,8 +23,11 @@ Typescript:
             = this is called module initialization / side effects. and languages 
             have methods to stop that like. "if __name__ == "__main__":",
             public static void, or if (require.main === module)
-
-
-
     
+        Ideas to think about:
+        - create a new object instance every time or morph it every time? pretty importiant
+        as the object becomes bigger or more importiant
+        - create a db instance and export to everything, 
+        or create a connection to the db instance every time?
+
 */

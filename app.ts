@@ -1,5 +1,5 @@
 import express from "express";
-import { database } from './db/database';
+import { login, createUSer } from "./endpoints/auth";
 
 import { 
     getPlaylists, 
@@ -43,8 +43,10 @@ app.get('/api/playlists/:id', getPlaylist);
 app.delete('/api/playlists/:id', deletePlaylist);
 app.post('/api/playlists/:id/songs', addSongToPlaylist);
 app.delete('/api/playlists/:id/songs/:songId', removeSongFromPlaylist);
-
-
+app.post('/api/auth/login', (req, res) => {
+    login(req, res);
+});
+app.post('/api/auth/new', createUSer);
 
 // Start the server
 app.listen(port, () => {

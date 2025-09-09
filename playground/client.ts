@@ -1,6 +1,9 @@
 //use axios 
+
+//make the prompts all if then. of mathematical
 import prompt from 'prompt-sync';
 import ServerConnector from './connectServer';
+import main2 from './authentication';
 
 const clientID:number = 1;
 
@@ -16,6 +19,7 @@ Commands - press any other key to exit
 6: Add Song to Playlist \n`);
 
 async function main() {
+    await main2();
     while (true) {
         let answer = Number(input(`enter a command: `));
         var res:string;
