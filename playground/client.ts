@@ -25,23 +25,23 @@ async function main() {
         var res:string;
         switch (answer) {
             case 1:
-                // GET /api/playlists/1 - Show playlists for user 1
-                res = await new ServerConnector("playlists").get(clientID.toString());
+                // GET /api/users/1/playlists - Show playlists for user 1
+                res = await new ServerConnector("users").withPath(clientID.toString()).withPath("playlists").get();
                 console.log(res);
                 break;
             case 2:
                 // GET /api/playlists/42 - Show single playlist with ID 42
-                res = await new ServerConnector("playlists").get("42");
+                res = await new ServerConnector("playlists").withPath("42").get();
                 console.log(res);
                 break;
             case 3:
                 // DELETE /api/playlists/42/songs/123 - Delete song 123 from playlist 42
-                res = await new ServerConnector("playlists/42/songs").delete("123");
+                res = await new ServerConnector("playlists/42/songs").withPath("123").delete();
                 console.log(res);
                 break;
             case 4:
                 // POST /api/playlists - Create new playlist
-                res = await new ServerConnector("playlists").post("", {
+                res = await new ServerConnector("playlists").post({
                     name: "My Awesome Mix",
                     userId: clientID
                 });
@@ -49,12 +49,12 @@ async function main() {
                 break;
             case 5:
                 // DELETE /api/playlists/42 - Delete playlist with ID 42
-                res = await new ServerConnector("playlists").delete("42");
+                res = await new ServerConnector("playlists").withPath("42").delete();
                 console.log(res);
                 break;
             case 6:
                 // POST /api/playlists/42/songs - Add song to playlist 42
-                res = await new ServerConnector("playlists/42/songs").post("", {
+                res = await new ServerConnector("playlists/42/songs").post({
                     songId: "123"
                 });
                 console.log(res);

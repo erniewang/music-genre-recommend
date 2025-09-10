@@ -20,9 +20,8 @@ const createUserSQL:string = `INSERT INTO users (username, password)
 VALUES (?, ?)`;
 
 const createUSer = async function(req:any, res:any) {
-    const cmd = database.prepare(createUserSQL); 
+    const cmd = database.prepare(createUserSQL);
     const dbRes = cmd.run(req.body.data.username, req.body.data.password);
-    console.log(dbRes);
     res.json(dbRes);
 };
 

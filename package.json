@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "ts-node ./app.ts",
-    "eric": "ts-node ./playground/client.ts"
+    "test": "ts-node ./playground/client.ts"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

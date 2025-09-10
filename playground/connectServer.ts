@@ -1,34 +1,32 @@
 //a class itself is a object
 class ServerConnector {
-    private baseURL: string; //can never be accessed outside
+    private url: string; // the complete URL
 
-    private buildURL(endpoint: string): string {
-        return this.baseURL + "/" + endpoint;
-    }
-    //used only by internal functions as shown below
-    
     constructor(endpoint:string) {
-        this.baseURL =`http://localhost:3000/api`;
-        this.baseURL = this.buildURL(endpoint);
+        this.url = `http://localhost:3000/api/${endpoint}`;
     }
-    
-    async get(parameter: string) {
+
+    // Add path segments to the base URL
+    withPath(path: string) {
+        this.url += `/${path}`;
+        return this;
+    }
+
+    async get() {
+        console.log("feching get request");
         try {
-            const combinedURL = this.buildURL(parameter);
-            //console.log("checking out the link",combinedURL);
-            const result = await fetch(combinedURL);
-            const data = await result.text();
+            const result = await fetch(this.url);
+            const data = await result.json();
             return data;
         } catch (error) {
+            console.log("error", error);
             throw error;
         }
     }
-    
-    async post(parameter: string, payload: object) {
+
+    async post(payload: object) {
         try {
-            const combinedURL = this.buildURL(parameter);
-            console.log("trying out", combinedURL);
-            const response = await fetch(combinedURL, {
+            const response = await fetch(this.url, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -36,17 +34,16 @@ class ServerConnector {
                 body: JSON.stringify({ data: payload }),
             });
 
-            const data = await response.text();
+            const data = await response.json();
             return data;
         } catch (error) {
             throw error;
         }
     }
 
-    async delete(parameter: string, payload?: object) {
+    async delete(payload?: object) {
         try {
-            const combinedURL = this.buildURL(parameter);
-            const response = await fetch(combinedURL, {
+            const response = await fetch(this.url, {
                 method: "DELETE",
                 body: payload ? JSON.stringify({ data: payload }) : undefined,
             });

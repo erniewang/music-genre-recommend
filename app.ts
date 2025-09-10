@@ -1,4 +1,6 @@
 import express from "express";
+var morgan = require('morgan');
+
 import { login, createUSer } from "./endpoints/auth";
 
 import { 
@@ -17,6 +19,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json()); 
+app.use(morgan('combined'));
 //IMPORTIANT
 //express does not automatically parse request bodies
 
@@ -37,7 +40,7 @@ app.post(`/test`, (req, res) => {
 });
 
 // Music Recommender API Routes
-app.get('/api/playlists/:userID', getPlaylists);
+app.get('/api/users/:userID/playlists', getPlaylists);
 app.post('/api/playlists', createPlaylist);
 app.get('/api/playlists/:id', getPlaylist);
 app.delete('/api/playlists/:id', deletePlaylist);
