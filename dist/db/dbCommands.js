@@ -1,5 +1,8 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.dbCommands = void 0;
 //command to create new database if needed
-export const dbCommands = {
+exports.dbCommands = {
     createTables: `
         CREATE TABLE IF NOT EXISTS users (
             userID INTEGER PRIMARY KEY,
