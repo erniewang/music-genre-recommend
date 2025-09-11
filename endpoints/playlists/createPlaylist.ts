@@ -7,4 +7,3 @@ export const createPlaylist = async (req: any, res: any) => {
     stmt.run(req.body.data.name, req.body.data.userId);
     res.json({ message: "succesfully inserted new playlist into database" });
 };
-

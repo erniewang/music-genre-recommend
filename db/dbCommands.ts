@@ -1,4 +1,5 @@
 //command to create new database if needed
+
 export const dbCommands = {
     createTables: `
         CREATE TABLE IF NOT EXISTS users (
@@ -13,10 +14,11 @@ export const dbCommands = {
         );
         CREATE TABLE IF NOT EXISTS playlists (
             playlistID INTEGER PRIMARY KEY,
-            name TEXT NOT NULL,
+            name TEXT NOT NULL UNIQUE,
             ownerID INTEGER NOT NULL,
             FOREIGN KEY (ownerID) REFERENCES users (userID) ON DELETE CASCADE
         );
+        
         CREATE TABLE IF NOT EXISTS playlistSongs (
             playlistID INTEGER NOT NULL,
             songID INTEGER NOT NULL,

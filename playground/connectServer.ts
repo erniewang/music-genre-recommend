@@ -13,13 +13,16 @@ class ServerConnector {
     }
 
     async get() {
-        console.log("feching get request");
         try {
-            const result = await fetch(this.url);
+            const result = await fetch(this.url, {
+                headers: {
+                    "Connection": "close"
+                }
+            });
             const data = await result.json();
             return data;
         } catch (error) {
-            console.log("error", error);
+            console.error("GET failed:", error);
             throw error;
         }
     }
@@ -29,14 +32,15 @@ class ServerConnector {
             const response = await fetch(this.url, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Connection": "close"
                 },
                 body: JSON.stringify({ data: payload }),
             });
-
             const data = await response.json();
             return data;
         } catch (error) {
+            console.error("POST failed:", error);
             throw error;
         }
     }
@@ -45,12 +49,15 @@ class ServerConnector {
         try {
             const response = await fetch(this.url, {
                 method: "DELETE",
+                headers: {
+                    "Connection": "close"
+                },
                 body: payload ? JSON.stringify({ data: payload }) : undefined,
             });
-
             const data = await response.text();
             return data;
         } catch (error) {
+            console.error("DELETE failed:", error);
             throw error;
         }
     }

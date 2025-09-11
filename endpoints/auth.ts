@@ -14,6 +14,7 @@ const login = async function(req:any, res:any) {
     else {
         res.json(dbRes);
     }
+    console.log(dbRes);
 };
 
 const createUserSQL:string = `INSERT INTO users (username, password) 
