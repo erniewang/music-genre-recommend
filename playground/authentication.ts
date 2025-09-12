@@ -20,11 +20,10 @@ async function main2() {
             tries++;
         }
         else {
-            return res.userID;
+            return;
         }
     }
     const newUserConfirm = await newUser();
-    console.log(newUserConfirm);
     return;
 }
 
