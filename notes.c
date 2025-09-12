@@ -8,6 +8,7 @@ bitch is trying to run node on a .ts file, of course it is gonna fucking make a 
     is fucking annoying as shit nigga.
 
 Resetting Issue:
-    - so trying to reused the same socket after the timeout goes to ECONNRESET. 
-
+    - so trying to reused the same socket after the timeout could be
+    causing a connection reset
+    
 */

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "ts-node ./app.ts",
+    "start": "node --inspect --require ts-node/register ./app.ts",
     "test": "ts-node ./playground/client.ts"
   },
   "dependencies": {

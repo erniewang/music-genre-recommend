@@ -10,8 +10,8 @@ const clientID:number = 1;
 const input = prompt();
 
 async function main() {
-    await main2();
-    console.log(`Logged in as User 1
+    const userID = await main2();
+    console.log(`Logged in as User ${userID}
 
         Commands - press any other key to exit
         1: Show All Playlists
@@ -24,15 +24,8 @@ async function main() {
         switch (answer) {
             case 1:
                 // GET /api/users/1/playlists - Show playlists and Songs
-                console.log(`[DEBUG CLIENT] Case 1: About to make GET request for playlists`);
-                console.log(`[DEBUG CLIENT] clientID: ${clientID}`);
-                try {
-                    res = await new ServerConnector("users").withPath(clientID.toString()).withPath("playlists").get();
-                    console.log(`[DEBUG CLIENT] GET request successful, response:`, res);
-                    console.log(res);
-                } catch (error) {
-                    console.log(`[DEBUG CLIENT] GET request failed:`, error);
-                }
+                res = await new ServerConnector("users").withPath(clientID.toString()).withPath("playlists").get();
+                console.log(res);
                 break;
             case 2:
                 // GET /api/playlists/42 - Show all playlists made by current user
