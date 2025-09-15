@@ -20,7 +20,7 @@ var morgan = require('morgan');
 const app = express();
 const port = process.env.PORT || 3000;
 
-debugger;
+//debugger;
 
 //set up middleware
 app.use(express.json()); 

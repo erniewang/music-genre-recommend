@@ -1,17 +1,20 @@
 import prompt from 'prompt-sync';
-import ServerConnector from './connectServer';
+import connectServer from './connectionAxios';
 
 const input = prompt();
 
-async function main2() {
+export var clientID:number;
+
+async function main2():Promise<boolean | string> {
     console.log("\n Please Log In");
+
     let tries:number = 0;
     while (tries < 3) {
         const u = input('enter username: ');
         const p = input('enter password: ');
         if (u == "q" || p == "q") Error("quit");
         //await database response
-        let res = await new ServerConnector('auth/login').post({
+        let res = await new connectServer('auth/login').post({
             username: u,
             password: p
         });
@@ -20,28 +23,33 @@ async function main2() {
             tries++;
         }
         else {
-            return;
+            clientID = res.userID;
+            return u;
         }
     }
     const newUserConfirm = await newUser();
-    return;
+    return newUserConfirm;
 }
 
-async function newUser() {
+async function newUser():Promise<boolean | string> {
     console.log("\n creating new user:");
     const newU = input('enter new username: ');
     const newP = input('enter new password: ');
-    const res = await new ServerConnector('auth/new').post({
-        username: newU,
-        password: newP
-    });
-    
-    if ('error' in res) {
-        console.log("Error creating user:", res.error);
-        return false;
-    } else {
-        console.log("User created successfully!");
-        return true;
+    var res:any;
+    try {
+        res = await new connectServer('auth/new').post({
+            username: newU,
+            password: newP
+        });
+        if (res.error) {
+            console.log(res.message, "please log in again");
+            return false;
+        }
+        clientID = res.userID;
+        return newU;
+    }
+    catch (error:any) {
+        throw error;
     }
 }
 

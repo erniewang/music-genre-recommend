@@ -22,8 +22,21 @@ VALUES (?, ?)`;
 
 const createUSer = async function(req:any, res:any) {
     const cmd = database.prepare(createUserSQL);
-    const dbRes = cmd.run(req.body.data.username, req.body.data.password);
-    res.json(dbRes);
+    try {
+        const dbRes = cmd.run(req.body.data.username, req.body.data.password);
+        // Success response
+        res.status(201).json({ 
+            success: true, 
+            message: "User created successfully",
+            userID: dbRes.lastInsertRowid 
+        });
+    } catch (error: any) {
+        console.log("Database error:", typeof(error));
+        res.status(409).json({ 
+            error: true,
+            message: "Username already exists" 
+        });
+    }
 };
 
 export {login, createUSer};

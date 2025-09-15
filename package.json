@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "ts-node  --inspect ./app.ts",
+    "start": "ts-node ./app.ts",
     "test": "ts-node ./playground/client.ts"
   },
   "dependencies": {
+    "axios": "^1.12.2",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",

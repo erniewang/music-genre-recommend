@@ -4,7 +4,7 @@ export const dbCommands = {
     createTables: `
         CREATE TABLE IF NOT EXISTS users (
             userID INTEGER PRIMARY KEY,
-            username TEXT NOT NULL,
+            username TEXT NOT NULL UNIQUE,
             password TEXT NOT NULL
         );
         CREATE TABLE IF NOT EXISTS songs (
