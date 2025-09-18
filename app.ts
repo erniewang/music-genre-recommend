@@ -1,15 +1,7 @@
 //importing endpoints
 import { login, createUSer } from "./endpoints/auth";
-import { 
-    getPlaylists, 
-    createPlaylist, 
-    getPlaylist, 
-    deletePlaylist 
-} from "./endpoints/playlists";
-import {
-    addSongToPlaylist,
-    removeSongFromPlaylist
-} from "./endpoints/songs";
+import { showSongs } from "./endpoints/songs";
+import { getLikes, addLike, removeLike } from "./endpoints/likes";
 
 //helper libraries
 import express from "express";
@@ -33,12 +25,12 @@ res.send(fs.readFileSync('./public/index.html', 'utf8'));
 });
 
 // Music Recommender API Routes
-app.get('/api/users/:userID/playlists', getPlaylists);
-app.post('/api/playlists', createPlaylist);
-app.get('/api/playlists/:id', getPlaylist);
-app.delete('/api/playlists/:id', deletePlaylist);
-app.post('/api/playlists/:id/songs', addSongToPlaylist);
-app.delete('/api/playlists/:id/songs/:songId', removeSongFromPlaylist);
+app.get('/api/songs', showSongs);
+
+// Likes routes
+app.get('/api/users/:userID/likes', getLikes);
+app.post('/api/users/:userID/likes', addLike);
+app.delete('/api/users/:userID/likes/:songID', removeLike);
 app.post('/api/auth/login', (req, res) => {login(req, res); });
 app.post('/api/auth/new', createUSer);
 

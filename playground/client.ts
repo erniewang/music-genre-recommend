@@ -18,34 +18,27 @@ async function main() {
 
     console.log(`Logged in as User ${userID}
         Commands - press any other key to exit
-        1: Show All Playlists
-        2: Show My Playlists
-        3: Delete Song from My Playlist
-        4: Add Song to Playlist \n`);
+        1: Show My Liked Songs
+        2: Like a Song
+        3: Show All Songs \n`);
     while (true) {
         let answer = Number(input(`enter a command: `));
         var res:string;
         switch (answer) {
             case 1:
-                // GET /api/users/1/playlists - Show playlists and Songs
-                res = await new connectServer("users").withPath(clientID.toString()).withPath("playlists").get();
+                // GET /api/users/:id/likes - Show liked songs for user
+                res = await new connectServer("users").withPath(clientID.toString()).withPath("likes").get();
                 console.log(res);
                 break;
             case 2:
-                // GET /api/playlists/42 - Show all playlists made by current user
-                res = await new connectServer("playlists").withPath("42").get();
+                // POST /api/users/:id/likes - Like a song
+                const songToLike = Number(input("Enter song ID to like: "));
+                res = await new connectServer("users").withPath(clientID.toString()).withPath("likes").post({ songID: songToLike });
                 console.log(res);
                 break;
             case 3:
-                //res = await new connectServer("playlists/42/songs").withPath("123").post();
-                //console.log(res);
-                console.log("skipping for now");
-                break;
-            case 4:
-                // POST /api/playlists/42/songs - Add song to playlist 42
-                res = await new connectServer("playlists/42/songs").post({
-                    songId: "123"
-                });
+                // GET /api/songs - Show all songs
+                res = await new connectServer("songs").get();
                 console.log(res);
                 break;
             default:
